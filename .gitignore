@@ -4,3 +4,7 @@ src/__pycache__/
 *.pyc
 .env
 CLAUDE.md
+.claude-flow/
+.claude/
+.hive-mind/
+.DS_Store
