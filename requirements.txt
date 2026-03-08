@@ -1,0 +1,21 @@
+# Core optimisation
+cvxpy>=1.4.0
+osqp>=0.6.5          # Fast QP solver (CVXPY backend)
+scs>=3.2.0           # Fallback convex solver
+
+# Explainability
+shap>=0.44.0
+scikit-learn>=1.3.0  # Used by shap.kmeans and internal SHAP routines
+
+# LLM
+anthropic>=0.25.0
+python-dotenv>=1.0.0
+
+# Data & numerics
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Dashboard & visualisation
+streamlit>=1.28.0
+plotly>=5.15.0
+matplotlib>=3.7.0    # Optional: used by SHAP force/summary plots

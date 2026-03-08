@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+  "effective_date": "2026-01-01",
+  "description": "Water withdrawal and thermal safety policy for datacenter cooling under constrained water availability (drought conditions).",
+  "temperature_thresholds": {
+    "zone1": {
+      "T_max": 35.0,
+      "T_min": 18.0,
+      "unit": "celsius"
+    },
+    "zone2": {
+      "T_max": 33.0,
+      "T_min": 18.0,
+      "unit": "celsius"
+    },
+    "zone3": {
+      "T_max": 34.0,
+      "T_min": 18.0,
+      "unit": "celsius"
+    },
+    "critical_alert_celsius": 38.0
+  },
+  "water_withdrawal_limits": {
+    "source_a": {
+      "daily_limit_liters": 50000,
+      "hourly_limit_liters": 3000,
+      "description": "Municipal grid water \u2014 primary supply",
+      "policy_section": "4.1"
+    },
+    "source_b": {
+      "daily_limit_liters": 30000,
+      "hourly_limit_liters": 2000,
+      "description": "Reclaimed water \u2014 secondary supply",
+      "policy_section": "4.2"
+    },
+    "source_c": {
+      "daily_limit_liters": 20000,
+      "hourly_limit_liters": 1500,
+      "description": "Groundwater \u2014 emergency use only",
+      "policy_section": "4.3"
+    },
+    "total_daily_limit_liters": 90000,
+    "combined_limit_policy_section": "4.0"
+  },
+  "valve_constraints": {
+    "valve1": {
+      "min_position": 0.0,
+      "max_position": 1.0,
+      "zone": "zone1",
+      "source": "source_a"
+    },
+    "valve2": {
+      "min_position": 0.0,
+      "max_position": 1.0,
+      "zone": "zone1",
+      "source": "source_b"
+    },
+    "valve3": {
+      "min_position": 0.0,
+      "max_position": 1.0,
+      "zone": "zone2",
+      "source": "source_a"
+    },
+    "valve4": {
+      "min_position": 0.0,
+      "max_position": 1.0,
+      "zone": "zone3",
+      "source": "source_c"
+    }
+  },
+  "cost_parameters": {
+    "energy_cost_per_kwh": 0.12,
+    "water_cost_per_liter": 0.003,
+    "alpha_energy_weight": 0.6,
+    "beta_water_weight": 0.4,
+    "fan_power_kw": [
+      2.5,
+      2.5,
+      3.0,
+      2.0
+    ],
+    "valve_flow_rate_liters_per_step": [
+      150,
+      120,
+      180,
+      100
+    ]
+  }
+}
