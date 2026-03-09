@@ -27,7 +27,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("main")
 
-CONTROL_INTERVAL_SEC = 5.0
+CONTROL_INTERVAL_SEC = 1.0
 DATA_DIR             = Path("data")
 STATE_PATH           = DATA_DIR / "current_state.json"
 AUDIT_PATH           = DATA_DIR / "audit_log.json"
@@ -91,6 +91,13 @@ class ControlLoop:
 
         # 1. Sensor data
         sensor           = self.simulator.simulate_step()
+        if sensor.get("phase") == "zone_overload" and self.simulator.step >= 16:
+           self.simulator = SensorDataSimulator(seed=42)
+           self.audit_log = []
+           STATE_PATH.unlink(missing_ok=True)
+           AUDIT_PATH.unlink(missing_ok=True)
+           logger.info("=== AUTO-RESET: Restarting simulation loop ===")
+           return
         T_current        = np.array([sensor["temp_zone1"], sensor["temp_zone2"], sensor["temp_zone3"]])
         reservoir_levels = np.array([sensor["reservoir_a"], sensor["reservoir_b"],
                                      sensor["reservoir_c"], sensor["reservoir_main"]])
