@@ -29,23 +29,23 @@ class SensorDataSimulator:
             t = self.step
 
         # Phase boundary injections
-        if self.step == 12:
+        if self.step == 4:
             self._reservoir_levels = np.array([90.0, 80.0, 90.0, 95.0])
-        elif self.step == 24:
+        elif self.step == 8:
             self._reservoir_levels = np.array([8.0, 14.0, 55.0, 35.0])
 
         # Phase-specific parameters
-        if self.step < 12:
+        if self.step < 4:
             temp_baselines    = np.array([26.0, 27.0, 26.0])
             ambient_base      = 22.0
             consumption_rates = np.array([0.12, 0.15, 0.08, 0.10])
-        elif self.step < 24:
-            phase_frac        = (self.step - 12) / 12.0
+        elif self.step < 8:
+            phase_frac        = (self.step - 4) / 4.0
             temp_baselines    = np.array([26.0, 27.0 + 1.0 * phase_frac, 26.0])
             ambient_base      = 22.0 + 1.5 * phase_frac
             consumption_rates = np.array([5.2, 4.8, 0.08, 0.10])
-        elif self.step < 36:
-            phase_frac        = (self.step - 24) / 12.0
+        elif self.step < 12:
+            phase_frac        = (self.step - 8) / 4.0
             temp_baselines    = np.array([26.0, 28.0 + 4.5 * phase_frac, 26.0])
             ambient_base      = 24.0 + 2.0 * phase_frac
             consumption_rates = np.array([0.15, 0.20, 0.08, 0.10])
@@ -103,9 +103,9 @@ class SensorDataSimulator:
         return reading
 
     def _current_phase(self) -> str:
-        if self.step <= 12:  return "normal"
-        if self.step <= 24:  return "water_shortage"
-        if self.step <= 36:  return "critical"
+        if self.step <= 4:  return "normal"
+        if self.step <= 8:  return "water_shortage"
+        if self.step <= 12:  return "critical"
         return "zone_overload"
 
     @staticmethod
